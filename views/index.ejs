@@ -1,0 +1,153 @@
+<!-- views/index.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookstore App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        
+        h1, h3 {
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px;
+        }
+
+        .left-section, .right-section {
+            border: 1px solid black;
+            border-radius: 10px;
+            width: 48%;
+            padding: 10px;
+        }
+
+        .delete-section {
+            border: 1px solid black;
+            border-radius: 10px;
+            width: 48%;
+            padding: 10px;
+        }
+
+        button {
+            margin-bottom: 5px;
+        }
+
+        button a {
+            color: #000;
+            text-decoration: none;
+        }
+
+        label {
+            margin-bottom: 5px;
+            width: 30px; /* Фіксована ширина лейблу */
+            min-width: 30px; /* Мінімальна ширина лейблу */
+        }
+
+        input {
+            margin-bottom: 5px;
+            margin-left: 40px; /* Відстань між лейблом і полем вводу */
+            flex: 1; /* Займати доступний залишок простору */
+            max-width: 400px;
+        }
+
+        /* Задаємо відстань між label та input */
+        .label-input-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <h1>Bookstore</h1>
+
+    <div class="container">
+        <div class="left-section">
+            <h3>Список книг</h3>
+            <!-- Список книг -->
+            <ul id="bookList">
+                <% books.forEach(book => { %>
+                    <li>
+                        <div>
+                            <%= `${book.title} by ${book.author}, ${book.year}, $${book.price}` %>
+                            <br>
+                            <button><a href="/delete/<%= book.id %>" class="delete-link">Delete Book</a></button>
+                        </div>
+                    </li>
+                <% }); %>
+            </ul>
+        </div>
+
+        <div class="right-section">
+            <h3>Додати книгу</h3>
+            <!-- Форма для додавання нової книги -->
+
+            <div class="form-container">
+                <form action="/add" method="post" id="addBookForm">
+                    <div class="label-input-container">
+                        <label for="title">Title:</label>
+                        <input type="text" id="title" name="title" required>
+                        <br>
+                    </div>
+                    <div class="label-input-container">
+                        <label for="author">Author:</label>
+                        <input type="text" id="author" name="author" required>
+                        <br>
+                    </div>
+                    <div class="label-input-container">
+                        <label for="year">Year:</label>
+                        <input type="number" id="year" name="year" required>
+                        <br>
+                    </div>
+                    <div class="label-input-container">
+                        <label for="price">Price:</label>
+                        <input type="number" id="price" name="price" step="0.01" required>
+                        <br>
+                    </div>
+                    <button type="submit">Add Book</button>
+                </form>
+            </div>
+
+            <h3>Редагувати книгу (не виходить функціонал) </h3>
+            <div class="form-container">
+                <form action="/edit" method="post" id="editBookForm">
+                    <div class="label-input-container">
+                        <label for="id">Id:</label>
+                        <input type="text" id="bookID" name="id" readonly>
+                        <br>
+                    </div>
+                    <div class="label-input-container">
+                        <label for="title2">Title:</label>
+                        <input type="text" id="title2" name="title" required>
+                        <br>
+                    </div>
+                    <div class="label-input-container">
+                        <label for="author">Author:</label>
+                        <input type="text" id="author" name="author" required>
+                        <br>
+                    </div>
+                    <div class="label-input-container">
+                        <label for="year">Year:</label>
+                        <input type="number" id="year" name="year" required>
+                        <br>
+                    </div>
+                    <div class="label-input-container">
+                        <label for="price">Price:</label>
+                        <input type="number" id="price" name="price" step="0.01" required>
+                        <br>
+                    </div>
+                    <button type="submit">Edit Book</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
